@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Крутой Переводчик</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="fireworks" id="fireworks"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-fire"></i> ОФИГЕННЫЙ ПЕРЕВОДЧИК</h1>
+            <p>Переводит быстро и чётко!</p>
+        </div>
+        <form method="POST">
+        <div class="translator-container">
+            <div class="input-box">
+                <div class="box-label">
+                    <span>Что переводим?</span>
+                    <span class="char-count">0/10000</span>
+                </div>
+             
+                <textarea name="text" placeholder="Введите текст для перевода..." class="text-area" oninput="updateCharCount(this)">{{ input_text }}</textarea>
+            </div>
+            
+            <div class="output-box">
+                <div class="box-label">
+                    <span>Результат</span>
+                    <span class="char-count"><i class="fas fa-bolt" style="color: #38a169;"></i> Готово!</span>
+                </div>
+                <div class="result-box">
+                    
+                    <p>{% if translation %}
+                        {{ translation }}
+                        {% endif %}
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <select name="language" class="language-select">
+    
+                {% for name, code in languages %}
+                <option value="{{ code }}" {% if code == selected_lang %}selected{% endif %}>
+                    {{ name }}
+                </option>
+                {% endfor %}
+                </select>
+            
+            <button type="submit" class="translate-btn pulse" >
+                <i class="fas fa-bolt"></i> ПЕРЕВЕСТИ!
+            </button>
+            
+            <div class="action-buttons">
+                <button type="button" class="icon-btn" title="Очистить" onclick="clearText()">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+                <button type="button" class="icon-btn" title="Озвучить" onclick="speakText()">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <button type="button" class="icon-btn" title="Копировать" onclick="copyText()">
+                    <i class="fas fa-copy"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Переводит между 89 языками • Точность 99.9% • Ультра-быстро</p>
+        </div>
+    </div>
+</form>
+
+    <script>
+        function updateCharCount(textarea) {
+            const charCount = textarea.value.length;
+            const maxChars = 10000;
+            const counter = textarea.parentElement.querySelector('.char-count');
+            
+            counter.textContent = `${charCount}/${maxChars}`;
+            
+            if (charCount > maxChars * 0.9) {
+                counter.style.color = '#e53e3e';
+            } else {
+                counter.style.color = '#718096';
+            }
+        }
+        
+        function translateText() {
+            const inputText = document.querySelector('.text-area').value;
+            const language = document.querySelector('.language-select').value;
+            const resultBox = document.querySelector('.result-box');
+            
+            if (!inputText.trim()) {
+                resultBox.innerHTML = '<p class="placeholder">Введите текст для перевода!</p>';
+                return;
+            }
+            
+            // Показываем анимацию загрузки
+            resultBox.innerHTML = '<div style="text-align:center; padding:40px"><div class="loading"></div><p style="margin-top:20px">Переводим...</p></div>';
+            
+            
+        }
+        
+        function clearText() {
+            document.querySelector('.text-area').value = '';
+            document.querySelector('.result-box').innerHTML = '<p class="placeholder"><strong>Перевод появится здесь</strong></p>';
+            updateCharCount(document.querySelector('.text-area'));
+        }
+        
+        function copyText() {
+            const resultBox = document.querySelector('.result-box');
+            if (!resultBox.querySelector('.placeholder')) {
+                navigator.clipboard.writeText(resultBox.textContent)
+                    .then(() => {
+                        const btn = document.querySelector('[title="Копировать"]');
+                        const originalHtml = btn.innerHTML;
+                        btn.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(() => {
+                            btn.innerHTML = originalHtml;
+                        }, 2000);
+                    });
+            }
+        }
+        
+        function speakText() {
+            alert('Скоро. Озвучивание текста!.');
+        }
+        
+        function createFireworks() {
+            const fireworksContainer = document.getElementById('fireworks');
+            fireworksContainer.innerHTML = '';
+            
+            for (let i = 0; i < 50; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.left = '50%';
+                firework.style.top = '50%';
+                firework.style.setProperty('--tx', `${Math.random() * 100 - 50}vw`);
+                firework.style.setProperty('--ty', `${Math.random() * 100 - 50}vh`);
+                firework.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
+                fireworksContainer.appendChild(firework);
+                
+                setTimeout(() => {
+                    firework.remove();
+                }, 1000);
+            }
+        }
+        
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCharCount(document.querySelector('.text-area'));
+            
+            // Добавляем немного фейерверков при загрузке
+            setTimeout(createFireworks, 10);
+        });
+    </script>
+</body>
+</html>
