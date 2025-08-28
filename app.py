@@ -1,3 +1,5 @@
+from langdetect import detect
+
 LANGUAGES = [
 ("азербайджанский", "az"),
 ("албанский", "sq"),
@@ -92,3 +94,5 @@ LANGUAGES = [
 ("яванский", "jv"),
 ("японский", "ja")
 ]
+
+

@@ -31,14 +31,12 @@
                     <span>Результат</span>
                     <span class="char-count"><i class="fas fa-bolt" style="color: #38a169;"></i> Готово!</span>
                 </div>
-                <div class="result-box">
-                    
-                    <p>{% if translation %}
-                        {{ translation }}
-                        {% endif %}
-                    </p>
-
-                </div>
+               <div class="result-box">
+    {% if translation %}
+        
+        {{ translation | safe }}
+    {% endif %}
+</div>
             </div>
         </div>
         
@@ -70,7 +68,7 @@
         </div>
         
         <div class="footer">
-            <p>Переводит между 89 языками • Точность 99.9% • Ультра-быстро</p>
+            <p>Переводит между 89 языками • Точность 75.9% • Ультра-быстро</p>
         </div>
     </div>
 </form>
@@ -158,6 +156,25 @@
             // Добавляем немного фейерверков при загрузке
             setTimeout(createFireworks, 10);
         });
+
+        
+    </script>
+    <script>
+        const textarea = document.querySelector('textarea');
+
+        // Функция для автоматического растягивания
+        function autoResize() {
+            // Сбрасываем высоту на стандартную, чтобы она сжалась перед расчетом
+            this.style.height = '205px';
+            // Устанавливаем новую высоту, равную высоте всего содержимого (scrollHeight)
+            this.style.height = (this.scrollHeight) + 'px';
+        }
+
+        // Вешаем обработчик события на ввод текста
+        if (textarea) {
+            textarea.addEventListener('input', autoResize, false);
+            autoResize.call(textarea);
+        }
     </script>
 </body>
 </html>

@@ -91,6 +91,7 @@ body {
 }
 
 .result-box {
+    width: 415px;
     min-height: 200px;
     padding: 15px;
     border: 2px solid #e2e8f0;
