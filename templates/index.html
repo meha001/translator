@@ -124,11 +124,81 @@
                     });
             }
         }
-        
+        //fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         function speakText() {
-            alert('Скоро. Озвучивание текста!.');
+            const resultBox = document.querySelector('.result-box');
+            const textToSpeak = resultBox.textContent.trim();
+            
+            if (!textToSpeak || resultBox.querySelector('.placeholder')) {
+                alert('Нет текста для озвучивания!');
+                return;
+            }
+            
+            if ('speechSynthesis' in window) {
+                // Останавливаем предыдущее озвучивание
+                window.speechSynthesis.cancel();
+                
+                const speech = new SpeechSynthesisUtterance(textToSpeak);
+                
+                // Ждем пока загрузятся голоса
+                speechSynthesis.onvoiceschanged = function() {
+                    const voices = speechSynthesis.getVoices();
+                    
+                    // Ищем Google-подобные голоса (приоритет для русских голосов)
+                    const preferredVoices = voices.filter(voice => 
+                        voice.lang.includes('ru') && 
+                        (voice.name.includes('Google') || 
+                        voice.name.includes('Russian') ||
+                        voice.name.includes('Yandex') ||
+                        voice.name.toLowerCase().includes('russian'))
+                    );
+                    
+                    // Выбираем лучший доступный голос
+                    if (preferredVoices.length > 0) {
+                        speech.voice = preferredVoices[0];
+                    } else {
+                        // Fallback: любой русский голос
+                        const russianVoices = voices.filter(voice => voice.lang.includes('ru'));
+                        if (russianVoices.length > 0) {
+                            speech.voice = russianVoices[0];
+                        }
+                    }
+                    
+                    // Настройки как в Google Переводчик
+                    speech.lang = 'ru-RU';
+                    speech.rate = 0.9;    // Чуть медленнее для естественности
+                    speech.pitch = 1.1;   // Чуть выше тона для четкости
+                    speech.volume = 1.0;
+                    
+                    // Добавляем небольшие паузы между предложениями
+                    speech.text = textToSpeak.replace(/[.!?]/g, '$&<break time="300ms"/>');
+                    
+                    // Визуальная обратная связь
+                    const btn = document.querySelector('[title="Озвучить"]');
+                    const originalHtml = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    btn.disabled = true;
+                    
+                    speech.onend = function() {
+                        btn.innerHTML = originalHtml;
+                        btn.disabled = false;
+                    };
+                    
+                    speech.onerror = function() {
+                        btn.innerHTML = originalHtml;
+                        btn.disabled = false;
+                        alert('Ошибка при озвучивании текста');
+                    };
+                    
+                    window.speechSynthesis.speak(speech);
+                };
+                
+            } else {
+                alert('Ваш браузер не поддерживает озвучивание текста');
+            }
         }
-        
+ //fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+
         function createFireworks() {
             const fireworksContainer = document.getElementById('fireworks');
             fireworksContainer.innerHTML = '';
