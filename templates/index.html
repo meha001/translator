@@ -20,7 +20,7 @@
             <div class="input-box">
                 <div class="box-label">
                     <span>Что переводим?</span>
-                    <span class="char-count">0/10000</span>
+                    <span class="char-count">0/1000</span>
                 </div>
              
                 <textarea name="text" placeholder="Введите текст для перевода..." class="text-area" oninput="updateCharCount(this)">{{ input_text }}</textarea>
@@ -81,7 +81,7 @@
     <script>
         function updateCharCount(textarea) {
             const charCount = textarea.value.length;
-            const maxChars = 10000;
+            const maxChars = 1000;
             const counter = textarea.parentElement.querySelector('.char-count');
             
             counter.textContent = `${charCount}/${maxChars}`;
