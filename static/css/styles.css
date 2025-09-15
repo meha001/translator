@@ -251,4 +251,109 @@ body {
         opacity: 0;
     }
 }
+/* Основной стиль для мобильных устройств */
+@media (max-width: 768px) {
+    /* Перераспределение контейнеров */
+    .translator-container {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    /* Адаптация для .container */
+    .container {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    /* Уменьшение размера текста для мобильных устройств */
+    .header h1 {
+        font-size: 1.8rem; /* Уменьшаем размер шрифта */
+    }
+
+    .header p {
+        font-size: 1rem;
+    }
+
+    /* Адаптация для текстовых полей */
+    .text-area {
+        height: 150px; /* Уменьшаем высоту текстового поля */
+        font-size: 0.9rem;
+    }
+
+    .result-box {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Языковой селектор */
+    .language-select {
+        min-width: 160px;
+        font-size: 0.9rem;
+    }
+
+    /* Кнопка перевода */
+    .translate-btn {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+
+    /* Изменения для action-кнопок */
+    .action-buttons {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .icon-btn {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    /* Стиль для футера */
+    .footer {
+        font-size: 0.8rem;
+    }
+
+    /* Уменьшаем отступы на мобильных */
+    .controls {
+        padding: 0 15px 15px;
+    }
+
+    /* Перераспределение некоторых элементов на мобильных */
+    .box-label {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .char-count {
+        font-size: 0.75rem;
+    }
+}
+
+/* Поддержка устройств с очень маленькими экранами (например, телефоны с экраном менее 400px) */
+@media (max-width: 400px) {
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .translator-container {
+        padding: 10px;
+    }
+
+    .translate-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .text-area {
+        height: 130px;
+    }
+
+    .language-select {
+        min-width: 140px;
+    }
+
+    .footer {
+        font-size: 0.7rem;
+    }
+}
 
