@@ -47,10 +47,11 @@ python app.py
 ```
 Теперь сайт будет доступен по адресу: http://127.0.0.1:5000
 
-###🙌 Автор
+### 🙌 Автор
 
-###Meha001
-###🔗 GitHub: @meha001
+### Meha001
+
+### 🔗 GitHub: @meha001
 
 
 pip install flask requests langdetect
