@@ -6,7 +6,7 @@
 
 Проект задеплоен и доступен по адресу:
 
-🔗 [(https://fheklfhjlefkddd.pythonanywhere.com/)]
+🔗 [ссылка на сайт](https://fheklfhjlefkddd.pythonanywhere.com/)
 
 ---
 
@@ -51,7 +51,7 @@ python app.py
 
 ### Meha001
 
-### 🔗 GitHub: @meha001
+### 🔗 GitHub: [@meha001](https://github.com/meha001)
 
 
 
