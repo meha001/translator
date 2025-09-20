@@ -8,6 +8,8 @@
 
 🔗 [ссылка на сайт](https://fheklfhjlefkddd.pythonanywhere.com/)
 
+<img width="990" height="663" alt="image" src="https://github.com/user-attachments/assets/954d63da-286b-42c8-ab8e-b6f5a09512db" />
+
 ---
 
 ## 🧰 Используемые технологии
